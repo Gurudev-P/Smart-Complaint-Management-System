@@ -18,6 +18,7 @@ pipeline {
             which docker
             which node
 
+            rm -rf .venv
             /opt/homebrew/bin/python3.12 -m venv .venv
             . .venv/bin/activate
             python --version
