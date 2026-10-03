@@ -1,0 +1,12 @@
+line-length = 170
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101", "B008", "UP007", "UP045", "UP017"]
+
+[lint.per-file-ignores]
+"tests/**" = ["S105", "S106", "S311", "S603", "E402"]
+"database/migrations/**" = ["I"]
+"backend/app/models/**" = ["F821"]  # SQLAlchemy string forward references
+"tests/perf/**" = ["S311"]
