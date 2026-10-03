@@ -5,7 +5,7 @@
 **Project ID:** 67  
 **Team Name:** Gundu Guru  
 **Institution:** PES University  
-**Department:** Computer Science and Engineering(AIML)
+**Department:** Computer Science and Engineering(AI&ML)
 
 ## Project Description
 
