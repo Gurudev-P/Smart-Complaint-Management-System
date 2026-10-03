@@ -24,15 +24,17 @@ The system provides role-based access for users, staff/resolvers, and administra
 
 ## Documentation
 
-- [Software Requirements Specification](docs/SRS/)
-- [Project Plan](docs/Project-Plan/)
+- [Software Requirements Specification](docs/SRS/README.md)
+- [Project Plan](docs/Project-Plan/README.md)
+- [High-Level Architecture](docs/Architecture/README.md)
+- [Software Design](docs/Software_Design/README.md)
 
 ## Project Status
 
 - Requirements / SRS — Completed
 - Project Planning — Completed
-- High-Level Architecture — Upcoming
-- Software Design — Upcoming
+- High-Level Architecture — Completed
+- Software Design — Completed
 - Implementation — Upcoming
 - Testing — Upcoming
 - System Validation — Upcoming
