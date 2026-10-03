@@ -8,12 +8,14 @@ pipeline {
   }
   stages {
     stage('Setup') {
-      steps {
+    steps {
         sh '''
-          python3 -m venv .venv
-          . .venv/bin/activate
-          pip install -r requirements-dev.txt
-          python -m playwright install --with-deps chromium
+            /opt/homebrew/bin/python3.12 -m venv .venv
+            . .venv/bin/activate
+            python --version
+            python -m pip install --default-timeout=180 --retries 5 --upgrade pip
+            python -m pip install --default-timeout=180 -r requirements-dev.txt
+            python -m playwright install --with-deps chromium
         '''
       }
     }
