@@ -3,13 +3,20 @@ pipeline {
   agent any
   options { timestamps(); timeout(time: 30, unit: 'MINUTES') }
   environment {
+    PATH = "/Users/gurudev/.docker/bin:/Applications/Docker.app/Contents/Resources/bin:/opt/homebrew/bin:/usr/local/bin:${env.PATH}"
     PIP_DISABLE_PIP_VERSION_CHECK = '1'
     TEST_DATABASE_URL = 'postgresql+psycopg://scms:scms@localhost:55432/scms_test'
   }
+}
   stages {
     stage('Setup') {
     steps {
         sh '''
+            echo "PATH=$PATH"
+            which python3.12
+            which docker
+            which node
+
             /opt/homebrew/bin/python3.12 -m venv .venv
             . .venv/bin/activate
             python --version
@@ -17,6 +24,7 @@ pipeline {
             python -m pip install --default-timeout=180 -r requirements-dev.txt
             python -m playwright install --with-deps chromium
         '''
+
       }
     }
     stage('Lint') {
