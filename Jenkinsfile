@@ -4,6 +4,7 @@ pipeline {
   options { timestamps(); timeout(time: 30, unit: 'MINUTES') }
   environment {
     PATH = "/Users/gurudev/.docker/bin:/Applications/Docker.app/Contents/Resources/bin:/opt/homebrew/bin:/usr/local/bin:${env.PATH}"
+    DOCKER_HOST = 'unix:///Users/gurudev/.docker/run/docker.sock'
     PIP_DISABLE_PIP_VERSION_CHECK = '1'
     TEST_DATABASE_URL = 'postgresql+psycopg://scms:scms@localhost:55432/scms_test'
   }
