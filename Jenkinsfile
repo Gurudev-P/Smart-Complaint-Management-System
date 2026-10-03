@@ -7,7 +7,7 @@ pipeline {
     PIP_DISABLE_PIP_VERSION_CHECK = '1'
     TEST_DATABASE_URL = 'postgresql+psycopg://scms:scms@localhost:55432/scms_test'
   }
-}
+
   stages {
     stage('Setup') {
     steps {
