@@ -62,7 +62,6 @@ pipeline {
       }
     }
     stage('Docker image') {
-      when { branch 'main' }
       steps { sh 'docker build -t scms:${BUILD_NUMBER} -t scms:latest .' }
     }
   }
