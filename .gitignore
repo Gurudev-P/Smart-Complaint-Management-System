@@ -7,3 +7,4 @@ reports/
 .ruff_cache/
 test-results/
 *.db
+.coverage
