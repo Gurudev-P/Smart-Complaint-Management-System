@@ -3,6 +3,7 @@
 In-app notifications are the baseline channel. External channels are pluggable adapters;
 none is enabled by default, so provider credentials never need to live in the codebase.
 """
+
 import logging
 import uuid
 from typing import Protocol
@@ -69,8 +70,22 @@ class NotificationService:
             self.notify(admin.user_id, event_type, message, complaint_id)
         return len(admins)
 
-    def list_for(self, user: User, unread_only: bool = False, limit: int = 50):
-        return self.repo.list_for(user.user_id, unread_only, limit), self.repo.unread_count(user.user_id)
+    def list_for(
+        self,
+        user: User,
+        unread_only: bool = False,
+        limit: int = 50,
+        event_type: str | None = None,
+    ):
+        return (
+            self.repo.list_for(
+                user.user_id,
+                unread_only,
+                limit,
+                event_type,
+            ),
+            self.repo.unread_count(user.user_id),
+        )
 
     def mark_read(self, user: User, notification_id: uuid.UUID) -> Notification:
         notification = self.repo.get(notification_id)
