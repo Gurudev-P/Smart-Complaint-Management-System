@@ -9,8 +9,8 @@ from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from backend.app.api.deps import get_current_user, require_roles
-from backend.app.core.constants import Role
-from backend.app.core.errors import Conflict, NotFound
+from backend.app.core.constants import Event, Role
+from backend.app.core.errors import Conflict, NotFound, ValidationFailed
 from backend.app.core.timeutil import as_utc
 from backend.app.db.session import get_db
 from backend.app.models import Category, User
@@ -101,11 +101,20 @@ def run_check(db: Session = Depends(get_db), _: User = Depends(require_roles(Rol
 @notifications.get("", response_model=NotificationPage)
 def list_notifications(
     unread_only: bool = False,
+    event_type: str | None = None,
     limit: int = Query(default=30, ge=1, le=100),
     db: Session = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    items, unread = NotificationService(db).list_for(user, unread_only, limit)
+    if event_type is not None and event_type not in Event.ALL:
+        raise ValidationFailed("Unsupported notification event type")
+
+    items, unread = NotificationService(db).list_for(
+        user,
+        unread_only=unread_only,
+        limit=limit,
+        event_type=event_type,
+    )
     return {"items": items, "unread": unread}
 
 

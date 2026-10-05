@@ -1,4 +1,5 @@
 """Assignment, status updates and resolution (FR-12–FR-15, FR-20, BR-03–BR-05, BR-10)."""
+
 import pytest
 
 from backend.app.core.constants import Role
@@ -172,3 +173,34 @@ def test_mark_notifications_read(client, user, admin, submit):
     assert client.get("/api/v1/notifications", params={"unread_only": True}, headers=user.headers).json()["items"] == []
     submit(user)
     assert client.post("/api/v1/notifications/read-all", headers=user.headers).json()["updated"] == 1
+
+
+@pytest.mark.req("FR-20", "FR-21")
+def test_notification_event_type_filter(client, user, admin, staff, submit):
+    cid = submit(user, priority="HIGH")["complaint_id"]
+
+    assign(client, admin, cid, staff.id)
+    status(client, staff, cid, "IN_PROGRESS")
+    resolve(client, staff, cid)
+
+    response = client.get(
+        "/api/v1/notifications",
+        params={"event_type": "STATUS_CHANGED"},
+        headers=user.headers,
+    )
+
+    assert response.status_code == 200
+    assert response.json()["items"]
+    assert all(notification["event_type"] == "STATUS_CHANGED" for notification in response.json()["items"])
+
+
+@pytest.mark.req("FR-20")
+def test_invalid_notification_event_type_rejected(client, user):
+    response = client.get(
+        "/api/v1/notifications",
+        params={"event_type": "NOT_A_REAL_EVENT"},
+        headers=user.headers,
+    )
+
+    assert response.status_code == 400
+    assert response.json()["detail"] == "Unsupported notification event type"
