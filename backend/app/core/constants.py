@@ -69,6 +69,16 @@ class Event:
     COMPLAINT_RESOLVED = "COMPLAINT_RESOLVED"
     COMPLAINT_CLOSED = "COMPLAINT_CLOSED"
 
+    ALL = (
+        COMPLAINT_SUBMITTED,
+        COMPLAINT_ASSIGNED,
+        STATUS_CHANGED,
+        SLA_APPROACHING,
+        COMPLAINT_ESCALATED,
+        COMPLAINT_RESOLVED,
+        COMPLAINT_CLOSED,
+    )
+
 
 # Default SLA targets in minutes, used to seed sla_rules.
 DEFAULT_SLA_MINUTES = {
