@@ -171,6 +171,8 @@ def report_complaints_csv(
     status_: list[str] | None = Query(default=None, alias="status"),
     priority: str | None = Query(default=None, pattern="^(LOW|MEDIUM|HIGH|CRITICAL)$"),
     category_id: uuid.UUID | None = None,
+    q: str | None = Query(default=None, max_length=100),
+    overdue: bool = False,
     created_from: datetime | None = Query(default=None, alias="from"),
     created_to: datetime | None = Query(default=None, alias="to"),
     db: Session = Depends(get_db),
@@ -178,9 +180,18 @@ def report_complaints_csv(
 ):
     service = ComplaintService(db)
     items, _ = service.list_for(
-        admin, scope="all", status=status_, priority=priority, category_id=category_id, search=None,
-        overdue=False, created_from=created_from, created_to=created_to, limit=10_000, offset=0,
-    )
+    admin,
+    scope="all",
+    status=status_,
+    priority=priority,
+    category_id=category_id,
+    search=q,
+    overdue=overdue,
+    created_from=created_from,
+    created_to=created_to,
+    limit=10_000,
+    offset=0,
+)
     approaching = service.sla.approaching_map()
     buffer = io.StringIO()
     writer = csv.writer(buffer)
