@@ -112,6 +112,28 @@ def test_complaint_journey_across_roles(page: Page):
     page.click("#bell")
     expect(page.locator(".popover .notif").first).to_contain_text("Resolved")
 
+def test_notification_event_type_filter(page: Page):
+    login(page, USER)
+
+    submit_complaint(
+        page,
+        f"Notification filter test {uuid.uuid4().hex[:6]}",
+        priority="HIGH",
+    )
+
+    page.goto("/#/notifications")
+
+    event_filter = page.locator("#event-type")
+    expect(event_filter).to_be_visible()
+
+    event_filter.select_option("COMPLAINT_SUBMITTED")
+
+    notifications = page.locator(".notif")
+    expect(notifications).not_to_have_count(0)
+
+    badges = page.locator(".notif .badge")
+    assert all(text == "Submitted" for text in badges.all_inner_texts())
+
 
 @pytest.mark.req("NFR-07")
 def test_html_in_complaint_is_rendered_as_text(page: Page):
