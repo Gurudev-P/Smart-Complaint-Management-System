@@ -1,9 +1,12 @@
 """Dashboard and reporting (FR-22–FR-24)."""
+
+import uuid
 from datetime import timedelta
 
 import pytest
 
 from backend.app.core.timeutil import utcnow
+from backend.app.models import SLA
 
 API = "/api/v1/complaints"
 
@@ -73,3 +76,44 @@ def test_complaint_report_and_csv_export(client, admin, user, submit):
     lines = res.text.strip().splitlines()
     assert lines[0].startswith("Reference,Created (UTC),Category")
     assert len(lines) == 3
+
+
+@pytest.mark.req("FR-23", "FR-24")
+def test_csv_export_supports_search_and_overdue_filters(client, admin, user, submit, db_session):
+    high = submit(
+        user,
+        priority="HIGH",
+        description="Network outage in computer lab",
+    )
+    low = submit(
+        user,
+        priority="LOW",
+        description="Broken classroom chair",
+    )
+
+    response = client.get(
+        "/api/v1/reports/complaints.csv",
+        params={"q": "outage"},
+        headers=admin.headers,
+    )
+
+    assert response.status_code == 200
+    lines = response.text.strip().splitlines()
+    assert len(lines) == 2
+    assert high["reference"] in lines[1]
+    assert low["reference"] not in response.text
+
+    overdue_sla = db_session.query(SLA).filter_by(complaint_id=uuid.UUID(low["complaint_id"])).one()
+    overdue_sla.deadline = utcnow() - timedelta(hours=1)
+    db_session.commit()
+
+    overdue_response = client.get(
+        "/api/v1/reports/complaints.csv",
+        params={"overdue": True},
+        headers=admin.headers,
+    )
+
+    assert overdue_response.status_code == 200
+    overdue_text = overdue_response.text
+    assert low["reference"] in overdue_text
+    assert high["reference"] not in overdue_text
