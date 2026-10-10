@@ -57,8 +57,8 @@ The Part-2 handout specifies a GitHub backlog, story points, assignees, two spri
 - [x] Add the Product Maintenance Plan in Word and retain a Markdown maintenance reference.
 - [x] Configure GitHub Actions for pushes to `main`, pull requests targeting `main`, and manual runs.
 - [x] Add a companion Software Design implementation-refinements addendum so validation findings are traceable.
-- [x] Add regression validation for whitespace-only category/user names and pass complaint-list search/overdue filters to CSV export (awaiting CI verification on this audit branch).
-- [ ] Reconcile Markdown and Word maintenance plan. The Markdown version contains a final review/approval section missing from the Word copy; regenerate or update the Word version from the approved reference before submission.
+- [x] Add regression validation for whitespace-only category/user names and pass complaint-list search/overdue filters to CSV export (GitHub Actions passed on PR #19).
+- [ ] Compare the Markdown and Word maintenance plan before final submission so future edits do not cause drift. Both current Version 1.0 files include a review/approval section and are dated 10 October 2026; re-synchronize the Word copy whenever the Markdown reference receives a material change.
 - [ ] Align document-index lifecycle labels with actual implementation stage (changes are on the audit branch).
 - [ ] Check the consolidated Word report for stale working-draft labels, consistency with final code, revision history, TOC/page numbering, and required signatures.
 - [ ] Export the final report to PDF if required; inspect the entire PDF before submission.
