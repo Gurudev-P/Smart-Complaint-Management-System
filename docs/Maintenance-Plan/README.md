@@ -2,13 +2,23 @@
 
 ## Smart Complaint Management System
 
-**Canonical document:** [Product Maintenance Plan](Product_Maintenance_Plan_Smart_Complaint_Management_System.md)
+Two companion formats are stored here:
 
-The plan defines maintenance ownership, routine checks, issue and release procedures, backup and recovery steps, monitoring, security/privacy upkeep, incident severity, and a maintenance record template.
+- **Editable Markdown reference:** [Product_Maintenance_Plan_Smart_Complaint_Management_System.md](Product_Maintenance_Plan_Smart_Complaint_Management_System.md)
+- **Formatted Word document:** [SCMS_Product_Maintenance_Plan.docx](SCMS_Product_Maintenance_Plan.docx)
 
-## Status
+Both formats cover maintenance ownership, change/release steps, routine checks, backup and recovery, monitoring, security/privacy upkeep, incident severity, maintenance records, and review/approval. The Markdown is the preferred editable reference for future changes; compare/regenerate the formatted Word version whenever material content changes so the submitted copies remain aligned.
 
-**Version:** 1.0  
-**Status:** Proposed maintenance baseline for team review, prepared on 10 October 2026.
+## Version and Operating Constraints
 
-The plan distinguishes verified repository capabilities from recommended practices. In particular, backup commands are manual operating procedures; automated backups and production monitoring were not verified in the repository when the plan was prepared. Review the plan against the final environment before the development freeze.
+Both copies are Version 1.0, prepared on 10 October 2026. This is a proposed student-project maintenance baseline, not evidence of a managed production support service.
+
+- Backup/restore commands are manual operating procedures; an automated backup schedule was not verified.
+- Dedicated production monitoring/alerting is not configured in the repository.
+- Real email/SMS/WhatsApp delivery is not operational until a provider is configured and delivery is verified end to end.
+- The Jenkinsfile includes machine-specific paths; verify those assumptions before moving Jenkins to another host.
+- Do not use local fallback secrets or demo passwords in an untrusted/shared deployment.
+
+Review the plan against the final environment before the development freeze.
+
+See the [Final Submission Readiness Checklist](../FINAL_SUBMISSION_READINESS.md).

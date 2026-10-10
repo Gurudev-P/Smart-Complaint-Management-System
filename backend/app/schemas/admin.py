@@ -22,6 +22,12 @@ class CategoryUpdateRequest(BaseModel):
     description: str | None = Field(default=None, max_length=500)
     active_flag: bool | None = None
 
+    @field_validator("name", mode="before")
+    @classmethod
+    def strip_name(cls, v: str | None) -> str | None:
+        # Trim before the min_length constraint so whitespace-only names are rejected.
+        return v.strip() if isinstance(v, str) else v
+
 
 class CategoryOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)

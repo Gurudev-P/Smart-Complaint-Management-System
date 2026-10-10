@@ -79,6 +79,30 @@ def test_complaint_report_and_csv_export(client, admin, user, submit):
 
 
 @pytest.mark.req("FR-23", "FR-24")
+def test_csv_export_respects_active_scope(client, admin, user, submit):
+    admin_complaint = submit(admin, description="Admin-origin maintenance request")
+    user_complaint = submit(user, description="User-origin classroom complaint")
+
+    mine = client.get(
+        "/api/v1/reports/complaints.csv",
+        params={"scope": "mine"},
+        headers=admin.headers,
+    )
+    assert mine.status_code == 200
+    assert admin_complaint["reference"] in mine.text
+    assert user_complaint["reference"] not in mine.text
+
+    all_complaints = client.get(
+        "/api/v1/reports/complaints.csv",
+        params={"scope": "all"},
+        headers=admin.headers,
+    )
+    assert all_complaints.status_code == 200
+    assert admin_complaint["reference"] in all_complaints.text
+    assert user_complaint["reference"] in all_complaints.text
+
+
+@pytest.mark.req("FR-23", "FR-24")
 def test_csv_export_supports_search_and_overdue_filters(client, admin, user, submit, db_session):
     high = submit(
         user,

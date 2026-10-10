@@ -2,106 +2,38 @@
 
 ## Smart Complaint Management System
 
-This folder contains the Project Plan for the Smart Complaint Management System, Project ID 67.
+**Document:** [Project_Plan_Smart_Complaint_Management_System.docx](Project_Plan_Smart_Complaint_Management_System.docx)
 
-The Project Plan defines how the project will be organized, developed, tracked, tested, and delivered using the required Software Engineering process.
-
-## Document
-
-**File:** `Project_Plan_Smart_Complaint_Management_System.docx`
-
-## Purpose
-
-The Project Plan establishes the project execution framework.
-
-It defines:
-
-- Development lifecycle
-- Development tools
-- Team responsibilities
-- Work Breakdown Structure (WBS)
-- Effort estimation
-- Schedule
-- Sprint planning
-- Risks and mitigation
-- Definition of Done
-- Progress tracking and reporting
-
-## Development Methodology
-
-The project follows an **Agile development lifecycle**.
-
-Work is organized into incremental development activities so that requirements, design, implementation, testing, and integration can be performed progressively.
+The Project Plan defines the Agile execution framework, tools, primary functional ownership, work breakdown structure, effort estimate, schedule, sprint planning, risks, definition of done, and progress-tracking approach.
 
 ## Development and Collaboration Tools
 
-The project plan identifies the following tools and technologies:
-
-- Git and GitHub for source control
-- GitHub Issues / Projects for Agile tracking
-- Python and FastAPI for backend development
-- HTML, CSS, and JavaScript for the web interface
-- PostgreSQL for relational data storage
-- Pytest and related testing tools
-- Jenkins for CI/CD
-- Docker for containerization
-- SonarQube or an equivalent tool for code-quality analysis
-- Draw.io / PlantUML for design and UML diagrams
+| Area | Repository status |
+|---|---|
+| Git / GitHub | Source control and pull requests are in use |
+| GitHub Issues | Feature and deliverable issues exist; Project board fields and sprint setup need a final check |
+| Backend / API | Python + FastAPI |
+| Frontend | HTML, CSS, and JavaScript |
+| Database | PostgreSQL with SQLAlchemy and Alembic migrations |
+| Testing | pytest, Playwright, and Node.js `node:test` |
+| CI | GitHub Actions is configured in `.github/workflows/ci.yml` |
+| Jenkins | `Jenkinsfile` exists; it includes developer-machine-specific paths and needs review before running on another host |
+| Containerization | Dockerfile and Docker Compose are present |
+| Static analysis | Ruff is configured in CI. SonarQube itself is not configured in the repository |
 
 ## Functional Ownership
 
-The project plan assigns primary functional ownership as follows:
+| Team member | Primary functionality |
+|---|---|
+| Purum Gurudev | Authentication and account management |
+| Prashyanth V | Complaint submission, categorization, and tracking |
+| Aditya Pradeep | Assignment, SLA monitoring, and escalation |
+| Nihar S Jain | Notifications, dashboard, and reporting |
 
-| Team Member    | Primary Functional Area                            |
-|----------------|----------------------------------------------------|
-| Purum Gurudev  | Authentication and Account Management              |
-| Prashyanth V   | Complaint Submission, Categorization, and Tracking |
-| Aditya Pradeep | Assignment, SLA Monitoring, and Escalation         |
-| Nihar S Jain   | Notifications, Dashboard, and Reporting            |
+All team members remain responsible for integration, testing, review, documentation, and final demonstration evidence.
 
-All members also contribute to integration, testing, documentation, code review, CI/CD, and design activities.
+## Current Execution State
 
-## Work Breakdown Structure
+The Project Plan remains the planning baseline; completed implementation work and outstanding coursework evidence are tracked separately. Part-2 requires a GitHub backlog with story points, assignees and two sprint plans, a one-minute Sprint 1 video (19–23 October 2026), a two-minute Sprint 2 video (26–30 October 2026), completed documentation, and a development freeze. Confirm the board itself—not just issue descriptions—contains the required values.
 
-The project is divided into planned activities covering:
-
-- Requirements
-- Architecture
-- Software design
-- Implementation
-- Testing
-- Integration
-- Deployment
-- Documentation
-- Final validation and demonstration
-
-## Schedule and Effort
-
-The Project Plan contains:
-
-- A rough person-month effort estimate
-- A six-week Gantt schedule
-- Sprint planning
-- Task allocation and tracking
-
-## Risk Management
-
-The plan identifies project risks and corresponding mitigation activities to reduce delays, integration problems, technical issues, and dependency-related problems.
-
-## Definition of Done
-
-A feature is considered complete only after the planned implementation, testing, review, integration, and documentation activities for that feature are completed.
-
-## Relationship With Other Documents
-
-The Project Plan defines **how the project will be executed**, while the other documents define **what is being built and how it is designed**.
-
-The documentation relationship is:
-
-`Project Plan + SRS → Architecture → Software Design → Implementation → Testing → Deployment`
-
-## Status
-
-**Status:** Project Planning Baseline
-
-**Current Development Phase:** Software Design
+Use the [Final Submission Readiness Checklist](../FINAL_SUBMISSION_READINESS.md) for current action items and unresolved documentation checks.

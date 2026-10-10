@@ -3,7 +3,8 @@ import uuid
 import pytest
 from pydantic import ValidationError
 
-from backend.app.schemas.auth import RegisterRequest
+from backend.app.schemas.admin import CategoryUpdateRequest
+from backend.app.schemas.auth import RegisterRequest, UserUpdateRequest
 from backend.app.schemas.complaint import ComplaintCreateRequest, ResolutionRequest, StatusUpdateRequest
 
 pytestmark = pytest.mark.req("NFR-07")
@@ -61,3 +62,20 @@ def test_blank_resolution_rejected():
 def test_unknown_status_rejected():
     with pytest.raises(ValidationError):
         StatusUpdateRequest(new_status="DONE")
+
+
+@pytest.mark.parametrize("name", ["", " ", "   ", "\t\n"])
+def test_category_update_rejects_blank_names(name):
+    with pytest.raises(ValidationError):
+        CategoryUpdateRequest(name=name)
+
+
+@pytest.mark.parametrize("name", ["", " ", "   ", "\t\n"])
+def test_user_update_rejects_blank_names(name):
+    with pytest.raises(ValidationError):
+        UserUpdateRequest(name=name)
+
+
+def test_admin_update_schemas_trim_valid_names():
+    assert CategoryUpdateRequest(name="  Library IT  ").name == "Library IT"
+    assert UserUpdateRequest(name="  Asha User  ").name == "Asha User"

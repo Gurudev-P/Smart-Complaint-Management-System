@@ -2,150 +2,52 @@
 
 ## Smart Complaint Management System
 
-This folder contains the High-Level Architecture documentation for the Smart Complaint Management System, Project ID 67.
+**Document:** [High_Level_Architecture_Smart_Complaint_Management_System.docx](High_Level_Architecture_Smart_Complaint_Management_System.docx)
 
-The architecture document translates the approved requirements into major system components, responsibilities, communication paths, security boundaries, data architecture, and deployment structure.
+The architecture document establishes the system context, layered modular architecture, component responsibilities, security boundaries, logical data domains, deployment structure, technology mapping, and requirement traceability.
 
-## Document
+## Architectural Components
 
-**File:** `High_Level_Architecture_Smart_Complaint_Management_System.docx`
+The repository contains these major components:
 
-## Purpose
+- Browser frontend (HTML/CSS/JavaScript)
+- FastAPI REST API under `/api/v1`
+- Authentication and role-based authorization
+- Complaint management and state-transition logic
+- Repository/data-access layer and PostgreSQL persistence
+- Assignment, SLA monitoring, and escalation services
+- In-app notification service
+- Dashboard and CSV reporting
+- Background SLA scheduler
+- Alembic database migrations
+- Docker Compose development environment
 
-The High-Level Architecture establishes the structural blueprint of the system before detailed software design and implementation.
+## Key Workflows
 
-It defines:
+**Complaint submission:** User → frontend → FastAPI → complaint service → repository → PostgreSQL.
 
-- System context
-- Architectural style
-- Major components
-- Component responsibilities
-- Component interactions
-- Security architecture
-- High-level data architecture
-- Deployment architecture
-- Technology mapping
-- Team ownership boundaries
-- Architecture-to-requirement mapping
+**Assignment and resolution:** Administrator/staff → frontend → authorized API → complaint/assignment service → PostgreSQL, with status history and notifications recorded.
 
-## Architectural Style
+**SLA monitoring:** Background scheduler → SLA service → PostgreSQL; overdue complaints are escalated and notifications are generated.
 
-The system uses a **Layered Modular Web Architecture**.
+**Notifications:** Core workflows generate in-app notifications. An adapter boundary exists for external channels, but real email/SMS/WhatsApp providers are not configured in the current baseline.
 
-The major layers and components include:
+## Technology and Deployment Mapping
 
-- Web Frontend
-- Backend REST API
-- Authentication Service
-- Complaint Service
-- Assignment / SLA / Escalation Service
-- Notification Service
-- Dashboard and Reporting
-- Data Access / Repository Layer
-- Background Scheduler
-- PostgreSQL Database
+| Concern | Current repository implementation |
+|---|---|
+| Frontend | HTML / CSS / JavaScript |
+| Backend | Python + FastAPI |
+| Database | PostgreSQL |
+| Data access and migrations | SQLAlchemy + Alembic |
+| Tests | pytest, Playwright, Node.js `node:test` |
+| Continuous integration | GitHub Actions (`.github/workflows/ci.yml`) |
+| Jenkins | A Jenkins pipeline exists with local-machine path assumptions |
+| Containerization | Dockerfile and Docker Compose |
+| Static analysis | Ruff in GitHub Actions |
 
-## Major Workflows
+## Status and Relationship to Other Documents
 
-The architecture defines the main system flows for:
+The architecture is a completed structural baseline, not an indication that design or implementation is still the next phase. Implementation and verification are recorded in the repository and in the linked Software Design, Test Plan, and System Validation documents. Implementation refinements found during validation are listed in the [Implementation Design Refinements Addendum](../Software_Design/Implementation_Refinements_Addendum.md).
 
-### Complaint Submission
-
-`User → Web Frontend → Backend REST API → Complaint Service → Data Access → PostgreSQL`
-
-### Assignment and Resolution
-
-`Administrator/Staff → Web Frontend → Backend REST API → Assignment / Complaint Service → Database`
-
-### SLA and Escalation
-
-`Background Scheduler → SLA / Escalation Service → Data Access → Database`
-
-### Notifications
-
-`Application Event → Notification Service → In-App Store / Configured External Providers`
-
-## Security Architecture
-
-The architecture defines high-level security controls including:
-
-- Authentication before protected operations
-- Role-based authorization
-- Secure password hashing
-- API and service-layer input validation
-- Restricted administrative operations
-- Secure configuration of external notification credentials
-
-## Data Architecture
-
-The architecture identifies the primary logical data groups:
-
-- User / Role
-- Complaint
-- Category / Priority
-- Assignment
-- Status History
-- SLA
-- Notification
-- Resolution
-
-Detailed database tables, keys, relationships, indexes, and normalization are deferred to the Software Design phase.
-
-## Deployment Architecture
-
-The planned deployment separates:
-
-- Client browser
-- Frontend / web layer
-- Application server
-- PostgreSQL database
-- Notification integrations
-
-Docker is planned for environment consistency, while Jenkins is planned for CI/CD automation.
-
-## Technology Mapping
-
-The architecture maps the major system concerns to the planned technologies:
-
-| Concern          | Planned Technology                    |
-|------------------|---------------------------------------|
-| Frontend         | HTML / CSS / JavaScript or equivalent |
-| Backend          | Python + FastAPI                      |
-| Database         | PostgreSQL                            |
-| Testing          | Pytest and API/client testing tools   |
-| CI/CD            | Jenkins                               |
-| Containerization | Docker                                |
-| Source Control   | Git + GitHub                          |
-| Agile Tracking   | GitHub Issues / Projects              |
-| Static Analysis  | SonarQube or equivalent               |
-
-## Requirement Traceability
-
-The architecture maps functional and non-functional requirement groups to the components responsible for implementing them.
-
-This provides a link between the SRS and the detailed software design.
-
-## Design Boundary
-
-The architecture intentionally does not define:
-
-- Detailed class structures
-- Exact database schema
-- Detailed API request/response contracts
-- Implementation-level code structure
-
-These are specified in the Software Design phase.
-
-## Relationship With Other Documents
-
-The architecture is derived from the approved SRS and acts as the structural foundation for the Software Design Document.
-
-The relationship is:
-
-`SRS → High-Level Architecture → Software Design → Implementation`
-
-## Status
-
-**Status:** Architecture Baseline
-
-**Next Related Phase:** Software Design
+See the [Final Submission Readiness Checklist](../FINAL_SUBMISSION_READINESS.md) for remaining release and course deliverables.
