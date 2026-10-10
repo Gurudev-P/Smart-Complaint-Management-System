@@ -2,118 +2,45 @@
 
 ## Smart Complaint Management System
 
-This folder contains the Software Requirements Specification (SRS) for the Smart Complaint Management System, Project ID 67.
+This folder contains the SRS baseline for the Smart Complaint Management System, Project ID 67.
 
-The SRS defines the functional requirements, non-functional requirements, business rules, data requirements, use cases, interfaces, constraints, and requirement traceability for the system.
+**Document:** [SRS_Smart_Complaint_Management_System.docx](SRS_Smart_Complaint_Management_System.docx)
 
-## Document
+## Purpose and Scope
 
-**File:** `SRS_Smart_Complaint_Management_System.docx`
-
-## Purpose
-
-The SRS establishes the approved requirements baseline for the project.
-
-It defines what the system must provide before architecture, detailed design, implementation, and testing begin.
-
-## Scope
-
-The system is a web-based complaint management platform that supports:
+The SRS establishes the requirements baseline: functional and non-functional requirements, business rules, data requirements, use cases, external interfaces, constraints, and traceability. It describes a web-based complaint management platform supporting:
 
 - User registration and authentication
-- Complaint submission
-- Complaint categorization and priority assignment
-- Complaint assignment to staff or departments
-- Complaint status tracking
+- Complaint submission and status tracking
+- Categorization and priority assignment
+- Assignment to authorized staff
 - SLA monitoring and escalation
-- Notifications
-- Administrative dashboards and reporting
-- Complaint history and resolution records
+- In-app notifications
+- Administrative dashboards and CSV reporting
+- Status history and resolution records
 
 ## User Roles
 
-| Role             | Main Responsibilities                                                                                      |
-|------------------|------------------------------------------------------------------------------------------------------------|
-| User             | Register/login, submit complaints, view complaints, and track complaint status                             |
-| Staff / Resolver | View assigned complaints, update status, and record resolution details                                     |
-| Administrator    | Manage users and categories, assign complaints, configure SLA-related rules, and access dashboards/reports |
+| Role | Main responsibilities |
+|---|---|
+| User | Register/sign in, submit complaints, and track their own complaints |
+| Staff / Resolver | View assigned or permitted unassigned complaints, update status, and record resolution details |
+| Administrator | Manage users and categories, assign and escalate complaints, configure SLA rules, and access reports |
 
-## Functional Requirements
+## Traceability
 
-The SRS defines functional requirements from **FR-01 to FR-24**, covering:
+The baseline defines FR-01 through FR-24, NFR-01 through NFR-07, and BR-01 through BR-10. The implementation, tests, and validation results are documented in Software Design, Test Plan and Report, and System Validation Report.
 
-- Authentication and account management
-- Complaint submission and tracking
-- Categorization and priority management
-- Assignment and resolution
-- SLA monitoring and escalation
-- Notifications
-- Dashboard and reporting
+The lifecycle relationship is:
 
-## Non-Functional Requirements
+`SRS → High-Level Architecture → Software Design → Implementation → Testing → System Validation → Final Report and Demonstration → Maintenance`
 
-The SRS defines requirements related to:
+## Scope and Version Control Note
 
-- Performance
-- Safety
-- Security
-- Usability
-- Reliability
-- Maintainability
-- Software quality attributes
-
-Security requirements include authentication, role-based authorization, password protection, and input validation.
-
-## Data Requirements
-
-The SRS identifies the major logical data entities required by the system:
-
-- User
-- Complaint
-- Category
-- Assignment
-- Status History
-- SLA
-- Notification
-- Resolution
-
-## Business Rules
-
-The SRS defines rules governing:
-
-- Authenticated complaint submission
-- Valid category and priority
-- Authorized assignment
-- Authorized status updates
-- Resolution requirements
-- SLA calculation
-- Escalation
-- Complaint access
-- Administrative access
-- Status-history retention
-
-## Analysis Models
-
-The SRS includes:
-
-- Use case model
-- High-level complaint workflow
-- Requirement Traceability Matrix
-- Glossary
-- Field layouts
-
-## Relationship With Other Documents
-
-The SRS is the requirements baseline for the project.
-
-The project documentation flow is:
-
-`SRS → High-Level Architecture → Software Design → Implementation → Testing`
-
-Architecture and design decisions should remain traceable to the requirements defined here.
+The current repository stores the v1.0 SRS baseline. The Test Plan mentions proposed v1.1 additions—feedback/reopen, attachments, departments, and login lockout—as outside the submitted Software Design baseline. No separately versioned, approved SRS v1.1 was located in this repository during the documentation audit. Treat these items as proposed scope changes until the team and evaluator approve and version an updated SRS; do not silently expand the baseline.
 
 ## Status
 
-**Status:** Requirements Baseline
+**Baseline status:** Requirements baseline established. The SRS is a requirements document, so its original scope remains a historical baseline rather than a live task-status report.
 
-**Next Related Phase:** High-Level Architecture
+For implementation and final-submission status, see the [Final Submission Readiness Checklist](../FINAL_SUBMISSION_READINESS.md).

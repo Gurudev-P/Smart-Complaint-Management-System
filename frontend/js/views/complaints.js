@@ -70,7 +70,13 @@ export async function complaintListView(root, { query, user }) {
 
   async function exportCsv() {
     try {
-      const res = await api.reportCsv({ status: filters.status, priority: filters.priority, category_id: filters.category_id });
+      const res = await api.reportCsv({
+        status: filters.status,
+        priority: filters.priority,
+        category_id: filters.category_id,
+        q: filters.q.trim(),
+        overdue: filters.overdue,
+      });
       const blob = await res.blob();
       const a = h("a", { href: URL.createObjectURL(blob), download: "complaints_report.csv" });
       document.body.append(a); a.click(); a.remove();
