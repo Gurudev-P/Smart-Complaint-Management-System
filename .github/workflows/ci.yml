@@ -1,0 +1,61 @@
+name: SCMS Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python-quality-and-tests:
+    name: Python lint and test suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Run Ruff
+        run: python -m ruff check backend tests
+
+      - name: Install Chromium for end-to-end tests
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run complete automated test suite
+        env:
+          SECRET_KEY: test-secret-key-that-is-long-enough-0123456789
+          ADMIN_EMAIL: admin@test.example.com
+          ADMIN_PASSWORD: Admin@1234
+        run: python -m pytest -q
+
+  frontend-tests:
+    name: Frontend JavaScript tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Run frontend validation tests
+        run: node --test tests/frontend/*.test.mjs
