@@ -73,3 +73,9 @@ class UserUpdateRequest(BaseModel):
     name: str | None = Field(default=None, min_length=2, max_length=100)
     role: str | None = Field(default=None, pattern="^(USER|STAFF|ADMIN)$")
     account_status: str | None = Field(default=None, pattern="^(ACTIVE|INACTIVE)$")
+
+    @field_validator("name", mode="before")
+    @classmethod
+    def strip_name(cls, v: str | None) -> str | None:
+        # Keep the normalized value consistent with registration and reject blank updates.
+        return v.strip() if isinstance(v, str) else v
