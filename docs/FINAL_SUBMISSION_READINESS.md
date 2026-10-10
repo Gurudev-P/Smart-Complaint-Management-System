@@ -67,11 +67,23 @@ The Part-2 handout specifies a GitHub backlog, story points, assignees, two spri
 - [ ] Record known deviations/limitations: external email/SMS/WhatsApp delivery is not configured, login spikes were slow in the recorded load test, only Chromium was covered in the report, formal penetration/accessibility audits were out of scope, and the Jenkinsfile assumes developer-machine paths.
 - [ ] After videos, documentation review, tests, and team sign-off, create the agreed final version/tag and freeze feature development.
 
-## 4. Requirements Baseline and Scope Control
+## 4. Original Word Documents — Controlled Revision Still Required
+
+The Markdown indexes are now current, but some statements inside the existing binary Word documents remain historical and should be corrected in a controlled revision before those documents are presented as final:
+
+- [ ] **SRS cover attribution:** the current SRS Word cover says “Prepared by: PPNA Bots,” while the repository and other submitted documents identify the team as **Gundu Guru**. Confirm the approved authoring attribution and correct the cover/revision history.
+- [ ] **Architecture phase text:** section 13 of the architecture Word document is titled “Next Phase: Software Design” and says implementation will begin only after the design baseline is established. This conflicts with the completed Software Design, implementation, and validation artefacts now in the repository. Update that section in a revised architecture document or explicitly supersede it.
+- [ ] **Software Design next steps:** the Version 1.0 Software Design retains an “Implementation Baseline and Next Steps” section, while the validation report records seven refinements that should be incorporated into the next design revision. The new Markdown addendum captures those refinements; decide whether the evaluator accepts it as a companion or requires a consolidated, controlled Software Design Version 1.1.
+- [ ] **Final report cover and revision history:** the Word report cover still says “Sections 1–6 Working Baseline.” Its content is present, but the cover/revision history and any required sign-off must be updated before calling the file the final submitted report.
+- [ ] **SRS narrative scope ambiguity:** the SRS role description mentions that users may “provide feedback,” while the Test Plan describes feedback/reopen as proposed v1.1 scope outside the v1.0 design. Resolve this with the team/evaluator: either treat the narrative mention as non-normative/out of scope for v1.0 or approve, design, implement, and test the feature under a formally versioned requirements change.
+
+These are not marked complete simply because their README indexes have been updated. The existing Word binaries have not been silently replaced in this audit branch; the checkboxes above remain open until the revised documents are reviewed and checked in.
+
+## 5. Requirements Baseline and Scope Control
 
 The repository contains one SRS document as the v1.0 baseline. The Test Plan refers to proposed v1.1 items (feedback/reopen, attachments, departments, login lockout) as outside that design baseline. Do not claim these items are implemented. If the team/evaluator adopts them, issue an approved, versioned SRS change and assess design, code, and tests before extending scope.
 
-## 5. Release Exit Criteria
+## 6. Release Exit Criteria
 
 The project is ready for final submission only when all of the following are true:
 
