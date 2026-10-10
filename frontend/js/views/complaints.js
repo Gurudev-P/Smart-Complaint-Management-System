@@ -74,6 +74,7 @@ export async function complaintListView(root, { query, user }) {
         status: filters.status,
         priority: filters.priority,
         category_id: filters.category_id,
+        scope,
         q: filters.q.trim(),
         overdue: filters.overdue,
       });
