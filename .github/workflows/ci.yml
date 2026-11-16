@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   python-quality-and-tests:
-    name: Python lint and test suite
+    name: Python lint, tests, and branch coverage
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -38,12 +38,32 @@ jobs:
       - name: Install Chromium for end-to-end tests
         run: python -m playwright install --with-deps chromium
 
-      - name: Run complete automated test suite
+      - name: Run complete automated suite with statement and branch coverage
         env:
           SECRET_KEY: test-secret-key-that-is-long-enough-0123456789
           ADMIN_EMAIL: admin@test.example.com
           ADMIN_PASSWORD: Admin@1234
-        run: python -m pytest -q
+        run: |
+          mkdir -p reports
+          python -m pytest -q \
+            --cov=backend/app \
+            --cov-branch \
+            --cov-report=term-missing \
+            --cov-report=xml:reports/coverage.xml \
+            --cov-report=html:reports/htmlcov \
+            --junitxml=reports/junit.xml
+
+      - name: Upload test and coverage evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scms-test-and-coverage-evidence
+          path: |
+            reports/coverage.xml
+            reports/htmlcov/
+            reports/junit.xml
+          if-no-files-found: warn
+          retention-days: 30
 
   frontend-tests:
     name: Frontend JavaScript tests
